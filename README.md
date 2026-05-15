@@ -169,9 +169,13 @@ opencode
 <br>
 
 # Terminales Compatibles
-* WSL (Ubuntu/Debian)
-* Windows Terminal + CMD
-* VS Code terminal integrado
+* ```WSL + Windows``` 
+> :warning: **Warning:** Se debe instalar de nuevo OpenCode, porque se instaló en Windows, no dentro de WSL. Son dos sistemas de archivos y entornos separados
+
+> :warning: **Warning:** Se debe instalar nvm (no tocar el npm del sistema)
+
+* ```Windows Terminal + CMD```
+* ```VS Code terminal integrado```
 
 <br>
 
