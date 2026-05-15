@@ -45,6 +45,7 @@ OpenCode es similiar a ```Claude Code (Anthropic)``` pero de codigo abierto, mie
 - [Generar API key](#generar-api-key)
 - [Seleccionar el Proveedor de AI (por interfaz de OpenCode)](#seleccionar-el-proveedor-de-ai-por-interfaz-de-opencode)
 - [Contexto en la AI (Agents.md)](#contexto-en-la-ai-agentsmd)
+  - [Contexto](#contexto)
 
 <br>
 
@@ -310,6 +311,9 @@ ready!!!
 ~/proyectos/esp32/src/AGENTS.md  ← específico de una subcarpeta (opcional)
 ```
 El más específico no reemplaza al global, se suma. Si hay conflicto, gana el más específico.
+
+##  Contexto
+Agregar la carpeta ```context``` dentro del proyecto
 
 <br>
 
