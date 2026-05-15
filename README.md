@@ -40,7 +40,11 @@ OpenCode es similiar a ```Claude Code (Anthropic)``` pero de codigo abierto, mie
   - [Estadísticas](#estadísticas)
   - [Comandos TUI (slash)](#comandos-tui-slash)
   - [Comandos personalizados](#comandos-personalizados)
-- [Troubleshooting](#troubleshooting)
+- [Terminales Compatibles](#terminales-compatibles)
+- [RouteLLM de Abacus en Opencode](#routellm-de-abacus-en-opencode)
+- [Generar API key](#generar-api-key)
+- [Seleccionar el Proveedor de AI (por interfaz de OpenCode)](#seleccionar-el-proveedor-de-ai-por-interfaz-de-opencode)
+- [Contexto en la AI (Agents.md)](#contexto-en-la-ai-agentsmd)
 
 <br>
 
@@ -163,18 +167,152 @@ opencode
 
 <br>
 
-More information: https://opencode.ai/docs/es
+# Terminales Compatibles
+* WSL (Ubuntu/Debian)
+* Windows Terminal + CMD
+* VS Code terminal integrado
 
 <br>
 
-<p align="center"><img src="./img/under_construction.png" width="200"   alt=" " /></p>
+# RouteLLM de Abacus en Opencode
+Configuración Global
+
+Create opencode.json en 
+```bash
+C:\Users\<USUARIO>\.config\opencode\opencode.json
+```
+
+En terminal:
+```bash
+cd .config
+nano opencode.json
+```
+
+opencode.json
+```Json
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Provider: Abacus RouteLLM (compatible con OpenAI)
+  "provider": {
+    "abacus": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Abacus RouteLLM",
+      "options": {
+        "baseURL": "https://routellm.abacus.ai/v1",
+        "apiKey": "{env:ABACUS_API_KEY}"
+      },
+      "models": {
+        // Auto-routing (recomendado para uso general)
+        "route-llm": {
+          "name": "RouteLLM Auto"
+        },
+        // OpenAI via Abacus
+        "gpt-5.4": { "name": "GPT-5.4" },
+        "gpt-5.4-mini": { "name": "GPT-5.4 Mini" },
+        "gpt-5.3-codex": { "name": "GPT-5.3 Codex" },
+        "gpt-4.1": { "name": "GPT-4.1" },
+        // Anthropic via Abacus
+        "claude-sonnet-4-6": { "name": "Claude Sonnet 4.6" },
+        "claude-opus-4-7": { "name": "Claude Opus 4.7" },
+        "claude-haiku-4-5": { "name": "Claude Haiku 4.5" },
+        // Google via Abacus
+        "gemini-3.1-pro": { "name": "Gemini 3.1 Pro" },
+        "gemini-2.5-flash": { "name": "Gemini 2.5 Flash" },
+        // Coding / embedded
+        "qwen3-coder": { "name": "Qwen3 Coder" },
+        "qwen3-235b-a22b": { "name": "Qwen3 235B" },
+        "deepseek-v3.2": { "name": "DeepSeek V3.2" },
+        "deepseek-R1": { "name": "DeepSeek R1" },
+        // Abacus propios
+        "abacus-smaug2": { "name": "Abacus Smaug2" },
+        "abacus-dracarys": { "name": "Abacus Dracarys" }
+      }
+    }
+  },
+
+  // Modelo por defecto (auto-routing)
+  "model": "abacus/route-llm",
+
+  // Modelo ligero para tareas menores (títulos de sesión, etc.)
+  "small_model": "abacus/claude-haiku-4-5",
+
+  // Permisos: pide confirmación antes de ejecutar bash o editar archivos
+  // Recomendado para proyectos de firmware/embedded
+  "permission": {
+    "bash": "ask",
+    "edit": "ask"
+  },
+
+  // Compactación de contexto automática
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+
+  // Ignorar carpetas de build en el watcher
+  "watcher": {
+    "ignore": [
+      ".pio/**",
+      ".git/**",
+      "build/**",
+      "dist/**",
+      "__pycache__/**",
+      "*.o",
+      "*.elf",
+      "*.bin"
+    ]
+  },
+
+  // Actualizaciones automáticas
+  "autoupdate": true
+}
+```
 
 <br>
 
-# Troubleshooting
-> :warning: **Warning:**
+# Generar API key
+
+<p align="center"><img src="./img/opencode_api.png" width="200"   alt=" " /></p>
+<p align="center"><img src="./img/RouteLLM_API.png" width="400"   alt=" " /></p>
 
 <br>
+
+# Seleccionar el Proveedor de AI (por interfaz de OpenCode)
+
+```bash
+opencode
+/connect
+```
+
+<p align="center"><img src="./img/opencode_abacus.png" width="400"   alt=" " /></p>
+
+Introducimos el API key
+<p align="center"><img src="./img/opencode_abacus1.png" width="400"   alt=" " /></p>
+
+verificamos los modelos
+```bash
+/models
+```
+
+<p align="center"><img src="./img/models.png" width="400"   alt=" " /></p>
+
+ready!!!
+
+<br>
+
+# Contexto en la AI (Agents.md)
+```bash
+~/.config/opencode/AGENTS.md     ← global (todos tus proyectos)
+        +
+~/proyectos/esp32/AGENTS.md      ← específico del proyecto
+        +
+~/proyectos/esp32/src/AGENTS.md  ← específico de una subcarpeta (opcional)
+```
+El más específico no reemplaza al global, se suma. Si hay conflicto, gana el más específico.
+
+<br>
+
 
 ---
 
