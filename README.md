@@ -50,10 +50,13 @@ OpenCode es similiar a ```Claude Code (Anthropic)``` pero de codigo abierto, mie
 <br>
 
 # Install
-Desde pagina oficial: https://opencode.ai/
+Desde pagina oficial: https://opencode.ai/ <br>
+Desde CMD:
 ```bash
 npm i -g opencode-ai
 ```
+
+> :warning: **Warning:** En caso de error verificar que la versión de ```Nodejs``` y ```NPM```  > v22.x.x
 
 # Run
 Desde terminal
