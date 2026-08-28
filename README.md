@@ -192,73 +192,66 @@ C:\Users\<USUARIO>\.config\opencode\opencode.json
 
 En terminal:
 ```bash
-cd .config
-nano opencode.json
+cd ~/.config/opencode/
+code opencode.json
 ```
 
-opencode.json
+***opencode.json***
+Deepseek V4 Flash sera la predeterminada y ABACUS también estará disponible:
 ```Json
 {
-  "$schema": "https://opencode.ai/config.json",
-
-  // Provider: Abacus RouteLLM (compatible con OpenAI)
+  "$schema": "https://opencode.ai",
   "provider": {
+    "opencode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OpenCode Free",
+      "options": {
+        "baseURL": "https://opencode.ai/v1",
+        "apiKey": "free"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash Free"
+        }
+      }
+    },
     "abacus": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "Abacus RouteLLM",
       "options": {
-        "baseURL": "https://routellm.abacus.ai/v1",
+        "baseURL": "https://abacus.ai",
         "apiKey": "{env:ABACUS_API_KEY}"
       },
       "models": {
-        // Auto-routing (recomendado para uso general)
-        "route-llm": {
-          "name": "RouteLLM Auto"
-        },
-        // OpenAI via Abacus
+        "route-llm": { "name": "RouteLLM Auto" },
         "gpt-5.4": { "name": "GPT-5.4" },
         "gpt-5.4-mini": { "name": "GPT-5.4 Mini" },
         "gpt-5.3-codex": { "name": "GPT-5.3 Codex" },
         "gpt-4.1": { "name": "GPT-4.1" },
-        // Anthropic via Abacus
         "claude-sonnet-4-6": { "name": "Claude Sonnet 4.6" },
         "claude-opus-4-7": { "name": "Claude Opus 4.7" },
         "claude-haiku-4-5": { "name": "Claude Haiku 4.5" },
-        // Google via Abacus
         "gemini-3.1-pro": { "name": "Gemini 3.1 Pro" },
         "gemini-2.5-flash": { "name": "Gemini 2.5 Flash" },
-        // Coding / embedded
         "qwen3-coder": { "name": "Qwen3 Coder" },
         "qwen3-235b-a22b": { "name": "Qwen3 235B" },
         "deepseek-v3.2": { "name": "DeepSeek V3.2" },
         "deepseek-R1": { "name": "DeepSeek R1" },
-        // Abacus propios
         "abacus-smaug2": { "name": "Abacus Smaug2" },
         "abacus-dracarys": { "name": "Abacus Dracarys" }
       }
     }
   },
-
-  // Modelo por defecto (auto-routing)
-  "model": "abacus/route-llm",
-
-  // Modelo ligero para tareas menores (títulos de sesión, etc.)
-  "small_model": "abacus/claude-haiku-4-5",
-
-  // Permisos: pide confirmación antes de ejecutar bash o editar archivos
-  // Recomendado para proyectos de firmware/embedded
+  "model": "opencode/deepseek-v4-flash",
+  "small_model": "opencode/deepseek-v4-flash",
   "permission": {
     "bash": "ask",
     "edit": "ask"
   },
-
-  // Compactación de contexto automática
   "compaction": {
     "auto": true,
     "prune": true
   },
-
-  // Ignorar carpetas de build en el watcher
   "watcher": {
     "ignore": [
       ".pio/**",
@@ -271,8 +264,6 @@ opencode.json
       "*.bin"
     ]
   },
-
-  // Actualizaciones automáticas
   "autoupdate": true
 }
 ```
